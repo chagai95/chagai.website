@@ -33,9 +33,9 @@
       leftDiv.style.display = "none";
       rightDiv.style.display = "none";
     } else {
-      document.body.style.fontSize = "700%";
-      document.body.style.zoom = "30%"
-    }
+/*       document.body.style.fontSize = "700%";
+ *//*       document.body.style.zoom = "30%"
+ */    }
 
 
     $(function () {
@@ -228,7 +228,7 @@
     display: block;
   }
 
-  #leftDiv {
+  /* #leftDiv {
     transform: rotate(-40deg);
     -webkit-transform: rotate(-40deg);
     top: 25%;
@@ -246,7 +246,7 @@
     margin-top: -50px;
     margin-left: -50px;
     height: 100px;
-  }
+  } */
 
   #dvImage {
     /* Full height */
@@ -257,25 +257,35 @@
     background-size: cover;
     background-image: url("https://chagai.website/me-computer-size.png")
   }
+
+  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(253, 253, 253);
+  justify-content: space-between;
+  font-size: 5.5vw;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  text-align: center;
+  font-size: 0vw;
+}
 </style>
 
 
 <body>
 
-  <div id="dvImage"></div>
-<!--   <div id="snow"></div> -->
 
-  <div id="rightDiv" align="left" style="position:absolute">
-    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://jitsi.chagai.website">My Video Calling
+
+<!--   <div id="dvImage"></div>
+ --><!--   <div id="snow"></div> -->
+
+  <div class="flex-container">
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://meet.chagai.website">My Video Calling
       App</a>
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://chat.chagai.website/">My Chat App</a>
   </div>
-
-
-  <div id="leftDiv" align="left" style="position:absolute">
-    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://element.chagai.website/">My Chat App</a>
-  </div>
-
-
 
 
   <div align="center">
@@ -499,6 +509,7 @@
     <a style="color: rgba(255, 153, 0, 0.87);" href="https://chagai-friedlander.webnode.com/about-me/"> About Me</a>
 
   </div>
+
 </body>
 
 </html>
