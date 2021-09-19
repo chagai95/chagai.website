@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://chagai.website/" />
   <meta property="og:image:width" content="450" />
   <meta property="og:image:height" content="298" />
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <script src="jquery-3.5.1.min.js"></script>
 
 </head>
@@ -20,7 +20,19 @@
 
 <script>
 
-
+// this is needed for some reason just to resize an iFrame all the rest is done in window.onload
+window.addEventListener('DOMContentLoaded', function(e) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#iFrameJitsi").on('load', function() {
+        $(this).height( "200px" );
+        $(this).width( "30%" );
+      });
+    } else {
+      $("#iFrameJitsi").on('load', function() {
+        $(this).height( "800px" );
+      });
+    }
+} );
 
 
   window.onload = function () {
@@ -34,7 +46,10 @@
       rightDiv.style.display = "none";
     } else {
       document.body.style.fontSize = "700%";
-      document.body.style.zoom = "30%"
+      document.body.style.zoom = "30%";
+      var div = document.getElementById('swissEmoji');
+      div.style.visibility = "hidden";
+      div.style.display = "none";
     }
 
 
@@ -72,7 +87,14 @@
     btn.classList.toggle('paused');
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function httpGet() {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", "https://meet.chagai.website/talkNow", false ); // false for synchronous request
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+  }
+
+/*   document.addEventListener('DOMContentLoaded', function () {
         var script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
         script.onload = function () {
@@ -135,11 +157,34 @@
             });
         }
         document.head.append(script);
-    });
+    }); */
+
+/* 
+function resizeIFrameToFitContent( iFrame ) {
+    alert('test')
+    iFrame.width  = "20%";
+    iFrame.height = "100px";
+}
+
+window.addEventListener('DOMContentLoaded', function(e) {
+
+    var iFrame = document.getElementById( 'iFrameJitsi' );
+    resizeIFrameToFitContent( iFrame );
+
+    // or, to resize all iframes:
+    var iframes = document.querySelectorAll("iframe");
+    for( var i = 0; i < iframes.length; i++) {
+        resizeIFrameToFitContent( iframes[i] );
+    }
+} ); */
+
+
 </script>
 
 
 <style>
+
+
 #snow {
         position: fixed;
         top: 0;
@@ -159,6 +204,11 @@
       width: 28%;
       display: none;
     }
+
+    iframe {
+        height: 10px;
+    }
+
   }
 
   html {
@@ -257,32 +307,67 @@
     background-size: cover;
     background-image: url("https://chagai.website/me-computer-size.png")
   }
+
+ /*  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(253, 253, 253);
+  justify-content: space-between;
+  font-size: 5.5vw;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  text-align: center;
+  font-size: 0vw;
+} */
+
+#pingMe {
+  background-color: #934caf; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 100px;
+}
+
 </style>
 
 
 <body>
+<!-- 
+  this is a cool flex, need to delete the next to divs for it to work and uncomment the css
+  <div class="flex-container">
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://meet.chagai.website">My Video Calling
+      App</a>
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://chat.chagai.website/">My Chat App</a>
+  </div>
+ -->
 
   <div id="dvImage"></div>
 <!--   <div id="snow"></div> -->
 
+<!-- 
   <div id="rightDiv" align="left" style="position:absolute">
-    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://jitsi.chagai.website">My Video Calling
-      App</a>
+    <a title="it's actually Jitsi 😉" style="text-decoration:none; color: rgb(255, 153, 0);" href="https://meet.chagai.website">Create a "Zoom" Meeting Link</a>
   </div>
 
 
   <div id="leftDiv" align="left" style="position:absolute">
-    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://element.chagai.website/">My Chat App</a>
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://chat.chagai.website/#/register">Use my Matrix Server</a>
   </div>
 
-
+ -->
 
 
   <div align="center">
 
     <div id="topDiv">
-      Hi! I'm Chagai
-
+      Hi! I'm Chagai, <br>
+       communication is very important to me! <br>
+        I have this page so it is easy and quick to contact me. <br>
       <br>
       <br>
       <div id="playButtonDiv">
@@ -298,18 +383,21 @@
 
       <br>
       <br>
-
-      <a title="Click to call me" href="tel:+41766524456"> +41766524456 </a>
+      <span id="swissEmoji">🇨🇭</span>
+      
+      <a title="Click to call me" href="tel:+41766524456"> +41  &nbsp; 76  &nbsp; 652  &nbsp; 4456 </a>
 
       <br><br>
 
-      <a title="Click to call me" style="color:rgb(10, 107, 34)" href="https://whereby.com/chagai">Start a video call
-        with
-        me</a>
+       <iframe id="iFrameJitsi" style="height: 100px; width: 20%; border: 0px;" allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.chagai.website/talknow#config.disableDeepLinking=true&interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true&config.startWithVideoMuted=true&interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%2C%22desktop%22%2C%22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D" ></iframe>
+
+      <!-- <a title="it's actually Jitsi 😉" style="color:rgb(10, 107, 34)" href="http://meet.chagai.website/talkNow">Join a "Zoom" Session with me now</a> -->
+      
       <br>
+      <button style="cursor: pointer;" id="pingMe" title="Every time you click I get a new notification 😉" onclick="httpGet()">Click here to tell me</button>
     </div>
     <br><br>
-    <div align="center">Are you lazy and just want to click a button to reach me? <br><br> You're in luck!</div>
+    <div align="center" > You can also contact me on: (press the app icon)</div>
     <br>
 
 
@@ -319,7 +407,7 @@
     <a href="https://api.whatsapp.com/send?phone=41766524456"
       target="_blank" style="text-decoration: none;font-size:4px">
       <img
-        src="https://lh3.googleusercontent.com/jefDhqV9CymA9xD5raH8NDPBeaUI-nK1nyP95mIbHQjP72Qb1Wg9ggYKX5cu4Lk-gdWvLHq7bFqfE4Vl-mH2F1b-FfRccFL7AJ5yqiejJEs3Ia2OLQXRImc0Ewrcub4s-P9PxoRtBj0=w224-h225-no"
+        src="WhatsApp.png"
         alt="WhatsApp" style="width:300px;height:300px;border:0;
       padding: 0px 2%;
       word-wrap: normal;
@@ -499,6 +587,7 @@
     <a style="color: rgba(255, 153, 0, 0.87);" href="https://chagai-friedlander.webnode.com/about-me/"> About Me</a>
 
   </div>
+
 </body>
 
 </html>
