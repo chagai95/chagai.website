@@ -1,0 +1,582 @@
+<!doctype html>
+<meta charset="utf-8" />
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+
+<head>
+  <title>Chagai Friedlander</title>
+  <meta name="description" content="This is my website 🤠">
+  <meta property="og:title" content="Chagai Friedlander" />
+  <meta property="og:description" content="This is my website 🤠">
+  <link rel="icon" href="https://chagai.website/me.jpg" type="image/gif" sizes="16x16">
+  <meta property="og:image" content="https://chagai.website/me.jpg" />
+  <meta property="og:url" content="https://chagai.website/" />
+  <meta property="og:image:width" content="450" />
+  <meta property="og:image:height" content="298" />
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <script src="jquery-3.5.1.min.js"></script>
+
+</head>
+
+
+<script>
+
+// this is needed for some reason just to resize an iFrame all the rest is done in window.onload
+window.addEventListener('DOMContentLoaded', function(e) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      $("#iFrameJitsi").on('load', function() {
+        $(this).height( "200px" );
+        $(this).width( "30%" );
+      });
+    } else {
+      $("#iFrameJitsi").on('load', function() {
+        $(this).height( "800px" );
+      });
+    }
+} );
+
+
+  window.onload = function () {
+    var backgroud_img_string = "url(https://chagai.website/me-computer-size.png)"; 
+    var leftDiv = document.getElementById('leftDiv');
+    var rightDiv = document.getElementById('rightDiv');
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      backgroud_img_string = "url(me)";
+      leftDiv.style.display = "none";
+      rightDiv.style.display = "none";
+    } else {
+      document.body.style.fontSize = "700%";
+      document.body.style.zoom = "30%";
+      var div = document.getElementById('swissEmoji');
+      div.style.visibility = "hidden";
+      div.style.display = "none";
+    }
+
+
+    $(function () {
+
+      $("#dvImage").css("background-image", backgroud_img_string);
+      $("#dvImage").css("background-repeat", "no-repeat");
+      $("#dvImage").css("background-size", "cover");
+      $("#dvImage").fadeIn(3000, function () {
+        $(this).css("background-image", backgroud_img_string);
+        $(this).css("background-repeat", "no-repeat");
+        $(this).css("background-size", "cover");
+        $(this).fadeOut(3000);
+      });
+    });
+
+    /*   document.body.style.zoom="40%"
+     */
+
+
+    /*  var delayInMilliseconds = 5000; //1 second
+   
+        setTimeout(function() {
+           document.getElementById("player").play();
+       }, delayInMilliseconds);  */
+  }
+
+  function playButton() {
+    var btn = document.getElementById("playButton");
+    if (btn.className !== 'button paused') {
+      document.getElementById("player").play();
+    } else {
+      document.getElementById("player").pause();
+    }
+    btn.classList.toggle('paused');
+  }
+
+  function httpGet() {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", "https://meet.chagai.website/talkNow", false ); // false for synchronous request
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+  }
+
+/*   document.addEventListener('DOMContentLoaded', function () {
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+        script.onload = function () {
+            particlesJS("snow", {
+                "particles": {
+                    "number": {
+                        "value": 200,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#0000FF"
+                    },
+                    "opacity": {
+                        "value": 0.7,
+                        "random": false,
+                        "anim": {
+                            "enable": false
+                        }
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true,
+                        "anim": {
+                            "enable": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": false
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 5,
+                        "direction": "bottom",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 300,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "events": {
+                        "onhover": {
+                            "enable": false
+                        },
+                        "onclick": {
+                            "enable": false
+                        },
+                        "resize": false
+                    }
+                },
+                "retina_detect": true
+            });
+        }
+        document.head.append(script);
+    }); */
+
+/* 
+function resizeIFrameToFitContent( iFrame ) {
+    alert('test')
+    iFrame.width  = "20%";
+    iFrame.height = "100px";
+}
+window.addEventListener('DOMContentLoaded', function(e) {
+    var iFrame = document.getElementById( 'iFrameJitsi' );
+    resizeIFrameToFitContent( iFrame );
+    // or, to resize all iframes:
+    var iframes = document.querySelectorAll("iframe");
+    for( var i = 0; i < iframes.length; i++) {
+        resizeIFrameToFitContent( iframes[i] );
+    }
+} ); */
+
+
+</script>
+
+
+<style>
+
+
+#snow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+  @media screen and (max-width: 600px) {
+    #divHyperlinks {
+      visibility: hidden;
+      clear: both;
+      float: left;
+      margin: 10px auto 5px 20px;
+      width: 28%;
+      display: none;
+    }
+
+    iframe {
+        height: 10px;
+    }
+
+  }
+
+  html {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+
+    font-family: 'Lato', sans-serif;
+    font-size: 50px;
+    /*       background-color: rgb(255, 145, 0);
+ */
+  }
+
+  a {
+    text-decoration: none;
+    color: red
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  /*     #player {
+    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+    width: 150px;
+    height: 50px;
+    }​
+ */
+
+  .button {
+    color: blue;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    width: 0;
+    height: 148px;
+    border-color: transparent transparent transparent #0f12d4;
+    transition: 100ms all ease;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 74px 0 74px 120px;
+    outline: 0;
+  }
+
+  .button.paused {
+    border-style: double;
+    border-width: 0px 0 0px 120px;
+  }
+
+  .button:hover {
+    border-color: transparent transparent transparent #3870d8;
+  }
+
+  #playButtonDiv {
+    width: 80px;
+    /* or whatever width you want. */
+    max-width: 80px;
+    /* or whatever width you want. */
+    height: 80px;
+    /* or whatever width you want. */
+    max-height: 80px;
+    /* or whatever width you want. */
+    display: block;
+  }
+
+  #leftDiv {
+    transform: rotate(-40deg);
+    -webkit-transform: rotate(-40deg);
+    top: 25%;
+    left: 10%;
+    margin-top: -50px;
+    margin-left: -50px;
+    height: 100px;
+  }
+
+  #rightDiv {
+    transform: rotate(40deg);
+    -webkit-transform: rotate(40deg);
+    top: 30%;
+    left: 70%;
+    margin-top: -50px;
+    margin-left: -50px;
+    height: 100px;
+  }
+
+  #dvImage {
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("https://chagai.website/me-computer-size.png")
+  }
+
+ /*  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(253, 253, 253);
+  justify-content: space-between;
+  font-size: 5.5vw;
+}
+.flex-container > div {
+  background-color: #f1f1f1;
+  text-align: center;
+  font-size: 0vw;
+} */
+
+#pingMe {
+  background-color: #934caf; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 100px;
+}
+
+</style>
+
+
+<body>
+<!-- 
+  this is a cool flex, need to delete the next to divs for it to work and uncomment the css
+  <div class="flex-container">
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://meet.chagai.website">My Video Calling
+      App</a>
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://chat.chagai.website/">My Chat App</a>
+  </div>
+ -->
+
+  <div id="dvImage"></div>
+<!--   <div id="snow"></div> -->
+
+<!-- 
+  <div id="rightDiv" align="left" style="position:absolute">
+    <a title="it's actually Jitsi 😉" style="text-decoration:none; color: rgb(255, 153, 0);" href="https://meet.chagai.website">Create a "Zoom" Meeting Link</a>
+  </div>
+  <div id="leftDiv" align="left" style="position:absolute">
+    <a style="text-decoration:none; color: rgb(255, 153, 0);" href="https://chat.chagai.website/#/register">Use my Matrix Server</a>
+  </div>
+ -->
+
+
+  <div align="center">
+
+    <div id="topDiv">
+      Hi! I'm Chagai, <br>
+       communication is very important to me! <br>
+        I have this page so it is easy and quick to contact me. <br>
+      <br>
+      <br>
+      <div id="playButtonDiv">
+        <button title="Click to hear my name" onclick="playButton()" id="playButton" class='button'></button>
+      </div>
+
+      <div>
+        <audio id="player" loop="loop">
+          <source src="https://chagai.website/chagaipronounce.mp3" type="audio/mpeg">
+
+        </audio>
+      </div>
+
+      <br>
+      <br>
+      <span id="swissEmoji">🇨🇭</span>
+      
+      <a title="Click to call me" href="tel:+41766524456"> +41  &nbsp; 76  &nbsp; 652  &nbsp; 4456 </a>
+
+      <br><br>
+
+       <iframe id="iFrameJitsi" style="height: 100px; width: 20%; border: 0px;" allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.chagai.website/talknow#config.disableDeepLinking=true&interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true&config.startWithVideoMuted=true&interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%2C%22desktop%22%2C%22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D" ></iframe>
+
+      <!-- <a title="it's actually Jitsi 😉" style="color:rgb(10, 107, 34)" href="http://meet.chagai.website/talkNow">Join a "Zoom" Session with me now</a> -->
+      
+      <br>
+      <button style="cursor: pointer;" id="pingMe" title="Every time you click I get a new notification 😉" onclick="httpGet()">Click here to tell me</button>
+    </div>
+    <br><br>
+    <div align="center" > You can also contact me on: (press the app icon)</div>
+    <br>
+
+
+
+
+
+    <a href="https://api.whatsapp.com/send?phone=41766524456"
+      target="_blank" style="text-decoration: none;font-size:4px">
+      <img
+        src="WhatsApp.png"
+        alt="WhatsApp" style="width:300px;height:300px;border:0;
+      padding: 0px 2%;
+      word-wrap: normal;
+      display: inline-block">
+    </a>
+
+
+    <!--     <a href="https://api.whatsapp.com/send?phone=4915905872952&text=my%20name%20is%20_writeyournamehere_%20.%20nice%20to%20meet%20you%20chagai.&source=&data=" target="_blank"
+      style="text-decoration: none;font-size:10px">
+      <img src=
+      "https://chagai.website/icons/whatsapp.png"
+      alt="WhatsApp" style="width:75px;height:75px;border:0;padding: 0px 10%;
+      word-wrap: normal;
+      display: inline-block">
+    </a> -->
+
+    <a href="https://telegram.me/chagai" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/5dv4wmUOgphsz7xqdCYp5LpU6E0zFgjnzhPjMn_g2YNx7OZq4Lt3EeLVn23wsELf7fxiKqMHazEdr4B1UgTr4yMYBwQOsuAtzkBAV7hpgnFDJRhYpulDSmxhFRIVfXIyI1yhaWF6Dz8=s225-no"
+        alt="Telegram" style="width:150px;height:150px;border:0;
+      padding: 0px 10%;
+      word-wrap: normal;
+      display: inline-block">
+    </a>
+
+    <a href="https://www.messenger.com/t/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/a0auO466RvvtYkCr9qnMMaXeKKiC5U4qWqqcOJFBw-sitdhb70aRxE1pRhJxgPtpH7y8A2pg8NEK6GkqHbzjUJ3Ub8CYZny8NxyLe6Weyi6l4EkeLa95yxNuFRtSE7z3aawPXM062LA=s225-no"
+        alt="Messenger" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://www.instagram.com/chagai95/" target="_blank" style="text-decoration: none;font-size:10px">
+      <img
+        src="https://lh3.googleusercontent.com/sUTjEsTiYNpNocuFX5BZ_veMipj5zUoHrN_gu9NFYiGtKx27k6eLCgEN2kVxm4k5kk3y5Q2CNa8CMJom0Z71DET2e6staPOQQMNnTYCjvegSWEybFpouBHiSXFnVoBPYpdgIN45ASH0=s225-no"
+        alt="Instagram" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="mailto:chagai.friedlander@gmail.com" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/qL2eTiIOVrzxI0heywcbSL8DIqEo4qXupDsBuPDocx8TMCwQH7cM4eDcjVDkZyk9J8dLls5tbHy4AD7lcZ28Tf2GcQbXx4HdvsvXNHDktHRFhLawctAZqwXWL8oxQ-lWRYKoxCPLdb0=s225-no"
+        alt="Gmail" style="width:75px;height:75px;border:0;">
+    </a>
+
+
+
+
+    <br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="tel:+15152593078" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/fayehxbtXHrBi4VJovQJZYTbPsZGY4TbpOe4hFFQFMNDbgLpok1_RaVUkZQsU37WTid1zjv7SOxFIXnZuZZjbI03i_opB0GRDzzhrUBjwl1w0GIPZS0k5goj7GP70QBj1oVYDJBKC2A=s225-no"
+        alt="Phone" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://de.linkedin.com/in/chagaifriedlander" target="_blank"
+      style="text-decoration: none;font-size:10px;font-size:10px">
+      <img
+        src="https://lh3.googleusercontent.com/gGVj8I4iqqWrgAMLRMQ9hJJdsaQGHmSdW2MG06WquV7NatRkPJmorIXRJO9vFsJUKGmpGbQJJsvEmbspv_9PP5C8QKZAA8Yv128Mv16TllsYNM7AF-BPwn8j68IvLqk1eUkGQy6GLFY=s225-no"
+        alt="LinkedIn" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://join.skype.com/invite/pPBoYrfYKAf5" target="_blank" style="text-decoration: none;font-size:10px">
+      <img
+        src="https://lh3.googleusercontent.com/T7qJ4iVWKrC6Q8SqIueRd_x2JHVDp8I9B6rEb2P-zZQ3M-enKpwjgBz22XEmne8eTmHw48tZA2rqEKHk1q8iJNpOaKT7LWPJpJzlIlrZO4WCeL6CXbcin4S3Xk628J1NvK5nhNr1kfA=w141-h137-no"
+        alt="Skype" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://www.facebook.com/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+      <img
+        src="https://lh3.googleusercontent.com/mhIWB5KdVWvGMDOC6S2Qz0VjvP8wWHGahSXfaZe-6S5kEN3zp82RSczruPAT7ddwJb3kP8s_HpiymeKJXCh8ZsOtQbqLjTQOH-nGktzMfaFnLiJVf1IAIyFII8l3uFl94G8u85Ik98Y=s225-no"
+        alt="Facebook" style="width:75px;height:75px;border:0;">
+    </a>
+
+
+
+    <a href="https://twitter.com/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/i8xIcue9Sw1GReKFGabo4Tqpi47Rzycb_7y8wMXJM3vZpuKD99Nh16e90zFaZzmM88LJKZAwQd0HepTRmEAEX7zmlSkjvNg8ks70eCsj7PbsesA1oUW-Ohdl9PWqgK4VuBbQyGyUKwg=s225-no"
+        alt="Twitter" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://github.com/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/kDtRMB89pXvusQhVqml5HIs0E_Ppd4J9dTdR31aXHWtzwj8CaUCAqpIeIyWbQHz54bbztQ8yrhK7eIZAxBoeEawjTJBI1H_zXlixYCbJ4bKCUB78OCGslVHdKGXEP_7wQ6PIAmZUcYM=s225-no"
+        alt="Github" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://stackoverflow.com/users/9921564/chagai-friedlander" target="_blank"
+      style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/WDPH4xB3Lr6Emph93M8SP0ZsC4ymPyYEWnJERzDOPy_0J9SpYCAdysnO5LFxSJmWyL-tS1_HMIt9l5xU5CIAnbm32pFpTJWZZLpQ6Wt7LDNHW9WGOjGdCqQ1sAz0cPuv_z0sBwYavZc=s225-no"
+        alt="Stackoverflow" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://www.couchsurfing.com/people/chagai" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/d1TYy0COTJ6DIM0ky7pH9oSEN9yb0rK3_VtwpmX4iRKH9LnG0kgf1otnGwNArqIpqic_ci8Jva6p1-730PF4uTknGXmigIK1OuJU5YjrPQQMqXTjkQ81vJ3VaGamUdJtIRmcgKdaaTw=w221-h228-no"
+        alt="Couchsurfing" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://lichess.org/@/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/RyjkJR1yhSf62-qSVFE16lETWItIsjArJLzmxHCtFLG6nZ1Thb5vk01tpyXPcgfd65xtXCh5tgSuz1B7bIkPftoRGACrEJdXMQnRHAw3uKvn38Hh93agZCbWmQVCxK6G9b7apKjIA-o=s225-no"
+        alt="Lichess" style="width:75px;height:75px;border:0;">
+    </a>
+
+
+
+    <a href="https://www.snapchat.com/add/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/LCeIYBt_bPgudFozyFlGV_Z1gIsactbVaVWsZ0aYZEJg6PdkdLndH4o4QB-zgQ_RZ3ythWFCz9kV6guLr6H785ZzWDeunGwgPrHdc0UhHXV0PJXjb3YqXIHSArnCqgzS9G5quc88VHw=s833-no"
+        alt="Snapchat" style="width:75px;height:75px;border:0;">
+    </a>
+
+    <a href="https://open.spotify.com/user/22jaga2wmi2h6nrswioech2ni" target="_blank"
+      style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/w9o8pP3ndVL-bWvmfSr29qiPRGMGOApSzrC8pEq8fqORHVfxRINah-aHJkKYGYejSM6d2TZVwHV9zUX3zKeDLRRtGrYazspEXRzvX1VaLOY7uecWPZPvaq5Nm6A8jSxDvxGRyVRcI18=s225-no"
+        alt="Spotify" style="width:75px;height:75px;border:0;">
+    </a>
+
+
+
+
+    <a href="https://discord.gg/uwrpF83" target="_blank" style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://lh3.googleusercontent.com/pw/ACtC-3c_qeLQdIMVG4AXjJ06bsGLIg-seNIgADeLGhyR9GdGfx5JMTIBARbIeNtLnage2qaGlHqnJ9HnvcpNCaoC8-wjFNFjS4i44BLwfdotX1liyttsj5jqgpbBdBYXfnqWVO7Dj-M4ol8AF1l0ofFY6b6nFQ=s512-no"
+        alt="Discord" style="width:75px;height:75px;border:0;">
+    </a>
+
+
+    <!--
+    To add another symbol copy this
+    <a href="THE_LINK_GOES_HERE" target="_blank"
+      style="text-decoration: none;font-size:10px">
+      <img src=
+      "THE_URL_OF_THE_PICTURE_GOES_HERE"
+      alt="DESCRIPTION_FOR_NO_INTERNET_GOES_HERE" style="width:75px;height:75px;border:0;">
+    </a>
+    -->
+
+
+
+
+    <br>
+    <br>
+
+
+    <a style="color: rgba(255, 153, 0, 0.87);" href="https://chagai-friedlander.webnode.com/about-me/"> About Me</a>
+
+  </div>
+
+</body>
+
+</html>
