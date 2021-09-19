@@ -36,14 +36,17 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 
   window.onload = function () {
-    var backgroud_img_string = "url(https://chagai.website/me-computer-size.png)"; 
+    var background_img_string = "url(https://chagai.website/me-computer-size.png)"; 
+/*     
     var leftDiv = document.getElementById('leftDiv');
     var rightDiv = document.getElementById('rightDiv');
-
+ */
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      backgroud_img_string = "url(me)";
+      //background_img_string = "url(me)"; // this causes the page to jump to the other picture so it's better to live with a worse picture than an annoying jump
+/*       
       leftDiv.style.display = "none";
       rightDiv.style.display = "none";
+ */
     } else {
       document.body.style.fontSize = "700%";
       document.body.style.zoom = "30%";
@@ -55,14 +58,14 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
     $(function () {
 
-      $("#dvImage").css("background-image", backgroud_img_string);
+      $("#dvImage").css("background-image", background_img_string);
       $("#dvImage").css("background-repeat", "no-repeat");
       $("#dvImage").css("background-size", "cover");
-      $("#dvImage").fadeIn(3000, function () {
-        $(this).css("background-image", backgroud_img_string);
+      $("#dvImage").fadeIn(2000, function () {
+        $(this).css("background-image", background_img_string);
         $(this).css("background-repeat", "no-repeat");
         $(this).css("background-size", "cover");
-        $(this).fadeOut(3000);
+        $(this).fadeOut(2000);
       });
     });
 
@@ -274,7 +277,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
     /* or whatever width you want. */
     display: block;
   }
-
+/* 
   #leftDiv {
     transform: rotate(-40deg);
     -webkit-transform: rotate(-40deg);
@@ -294,6 +297,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
     margin-left: -50px;
     height: 100px;
   }
+ */
 
   #dvImage {
     /* Full height */
