@@ -20,22 +20,86 @@
 
 <script>
 
+/*  try catching the permission and showing an error - need to still prompt the permission request and only on success show the iframe
+
+navigator.permissions.query({name: 'microphone'})
+ .then((permissionObj) => {
+  console.log(permissionObj.state);
+ })
+ .catch((error) => {
+  console.log('Got error :', error);
+ })
+
+ navigator.permissions.query({name: 'camera'})
+ .then((permissionObj) => {
+  console.log(permissionObj.state);
+ })
+ .catch((error) => {
+  console.log('Got error :', error);
+ }) */
+
+
+  try {
+    //httpGetPingMe()  comment this out to take a break from notifications  
+} catch (error) {
+  console.error(error);
+  // expected output: ReferenceError: nonExistentFunction is not defined
+  // Note - error messages will vary depending on browser
+}
+
+
 // this is needed for some reason just to resize an iFrame all the rest is done in window.onload
 window.addEventListener('DOMContentLoaded', function(e) {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       $("#iFrameJitsi").on('load', function() {
-        $(this).height( "200px" );
-        $(this).width( "30%" );
+        document.getElementById('phoneNumber').style.fontSize ="40px";
+        $(this).height( "300px" );
+        $(this).width( "40%" );
+        document.getElementById('niceButton').style.fontSize ="30px";
+        document.getElementById('iframeRefresher').style.fontSize ="30px";
+        document.getElementById('introText').style.fontSize ="40px";
+        for (const item of document.getElementsByClassName('bigIcons')) { // You can use `let` instead of `const` if you like
+          item.style.width = "100px";
+          item.style.height = "100px";
+        }
+      });
+      $("#iFrameYoutube").on('load', function() {
+        document.getElementById('phoneNumber').style.fontSize ="40px";
+        $(this).height( "300px" );
+        $(this).width( "40%" );
+        document.getElementById('niceButton').style.fontSize ="30px";
+        document.getElementById('iframeRefresher').style.fontSize ="30px";
+        for (const item of document.getElementsByClassName('bigIcons')) { // You can use `let` instead of `const` if you like
+          item.style.width = "100px";
+          item.style.height = "100px";
+        }
       });
     } else {
+      document.getElementById('introText').style.fontSize ="60px";
+      document.getElementById('phoneNumber').style.fontSize ="100px";
       $("#iFrameJitsi").on('load', function() {
         $(this).height( "800px" );
       });
+      document.body.style.fontSize = "700%";
+      document.body.style.zoom = "30%";
+      var div = document.getElementById('swissEmoji');
+      div.style.visibility = "hidden";
+      div.style.display = "none";
+
     }
 } );
 
 
   window.onload = function () {
+
+    document.getElementById('iframeRefresher').addEventListener('click', function() {
+      var element = document. getElementById("iFrameDiv");
+      var parent = element. parentNode;
+      parent. removeChild(element);
+      parent.appendChild(element);
+      
+    });
+
     var background_img_string = "url(https://chagai.website/me-computer-size.png)"; 
 /*     
     var leftDiv = document.getElementById('leftDiv');
@@ -43,16 +107,11 @@ window.addEventListener('DOMContentLoaded', function(e) {
  */
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       //background_img_string = "url(me)"; // this causes the page to jump to the other picture so it's better to live with a worse picture than an annoying jump
-/*       
+/*    
+      //This is just ugly 
       leftDiv.style.display = "none";
       rightDiv.style.display = "none";
  */
-    } else {
-      document.body.style.fontSize = "700%";
-      document.body.style.zoom = "30%";
-      var div = document.getElementById('swissEmoji');
-      div.style.visibility = "hidden";
-      div.style.display = "none";
     }
 
 
@@ -65,7 +124,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
         $(this).css("background-image", background_img_string);
         $(this).css("background-repeat", "no-repeat");
         $(this).css("background-size", "cover");
-        $(this).fadeOut(2000);
+        $(this).fadeOut(1000);
       });
     });
 
@@ -90,11 +149,53 @@ window.addEventListener('DOMContentLoaded', function(e) {
     btn.classList.toggle('paused');
   }
 
-  function httpGet() {
+  function playButton2() {
+    var btn = document.getElementById("playButton2");
+    if (btn.className !== 'button paused') {
+      document.getElementById("player2").play();
+    } else {
+      document.getElementById("player2").pause();
+    }
+    btn.classList.toggle('paused');
+  }
+
+  function playButton3() {
+    var btn = document.getElementById("playButton3");
+    if (btn.className !== 'button paused') {
+      document.getElementById("player3").play();
+    } else {
+      document.getElementById("player3").pause();
+    }
+    btn.classList.toggle('paused');
+  }
+
+  function httpGetPingMe() {
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open( "GET", "https://meet.chagai.website/talkNow", false ); // false for synchronous request
       xmlHttp.send( null );
       return xmlHttp.responseText;
+  }
+
+  function iFrameReload() {
+    //document.getElementById("iFrameJitsi").contentWindow.location.reload(true);
+    var element = document.getElementById("iFrameJitsi");
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", "https://meet.chagai.website/talknow#config.disableDeepLinking=true&interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true&config.startWithVideoMuted=true&interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%2C%22desktop%22%2C%22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D");
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          ifrm.style.width = "200px";
+          ifrm.style.height = "30%";
+          ifrm.style.border = "0px";
+        } else {
+          ifrm.style.width = "800px";
+          ifrm.style.height = "20%";
+          ifrm.style.border = "0px";
+        }
+        parent.appendChild(ifrm);
+        $("#iframe").on('load', function() {
+          $(this).height( "800px" );
+      });
   }
 
 /*   document.addEventListener('DOMContentLoaded', function () {
@@ -217,6 +318,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
   }
 
   body {
+    background-color: bisque;
     height: 100%;
     margin: 0;
 
@@ -277,6 +379,35 @@ window.addEventListener('DOMContentLoaded', function(e) {
     /* or whatever width you want. */
     display: block;
   }
+
+
+  #playButtonDiv2 {
+    margin-left: 20%;
+    width: 80px;
+    /* or whatever width you want. */
+    max-width: 80px;
+    /* or whatever width you want. */
+    height: 80px;
+    /* or whatever width you want. */
+    max-height: 80px;
+    /* or whatever width you want. */
+    display: block;
+  }
+
+
+  #playButtonDiv3 {
+    margin-right: 20%;
+
+    width: 80px;
+    /* or whatever width you want. */
+    max-width: 80px;
+    /* or whatever width you want. */
+    height: 80px;
+    /* or whatever width you want. */
+    max-height: 80px;
+    /* or whatever width you want. */
+    display: block;
+  }
 /* 
   #leftDiv {
     transform: rotate(-40deg);
@@ -322,7 +453,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
   font-size: 0vw;
 } */
 
-#pingMe {
+#niceButton {
   background-color: #934caf; /* Green */
   border: none;
   color: white;
@@ -331,6 +462,19 @@ window.addEventListener('DOMContentLoaded', function(e) {
   text-decoration: none;
   display: inline-block;
   font-size: 100px;
+  cursor:pointer;
+}
+
+#iframeRefresher {
+  background-color: #af4c4c; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 100px;
+  cursor:pointer;
 }
 
 </style>
@@ -346,8 +490,13 @@ window.addEventListener('DOMContentLoaded', function(e) {
   </div>
  -->
 
-  <div id="dvImage"></div>
-<!--   <div id="snow"></div> -->
+<!--  add my image in the background -->
+
+<!--   <div id="dvImage"></div>   -->
+
+
+
+ <!--   <div id="snow"></div> -->
 
 <!-- 
   <div id="rightDiv" align="left" style="position:absolute">
@@ -362,48 +511,92 @@ window.addEventListener('DOMContentLoaded', function(e) {
   <div align="center">
 
     <div id="topDiv">
-      Hi! I'm Chagai, <br>
-       communication is very important to me! <br>
-        I have this page so it is easy and quick to contact me. <br>
-      <br>
-      <br>
-      <div id="playButtonDiv">
-        <button title="Click to hear my name" onclick="playButton()" id="playButton" class='button'></button>
-      </div>
+      <br><br>
 
-      <div>
-        <audio id="player" loop="loop">
-          <source src="https://chagai.website/chagaipronounce.mp3" type="audio/mpeg">
-
-        </audio>
-      </div>
-
-      <br>
-      <br>
-      <span id="swissEmoji">🇨🇭</span>
-      
-      <a title="Click to call me" href="tel:+41766524456"> +41  &nbsp; 76  &nbsp; 652  &nbsp; 4456 </a>
+      <iframe id="iFrameYoutube" width="3877" 
+                height="1548"
+                   src="https://www.youtube.com/embed/ds7JjPf6-xk?autoplay=1&rel=0" 
+                        title="YouTube video player" 
+                            frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen></iframe>
 
       <br><br>
 
-       <iframe id="iFrameJitsi" style="height: 100px; width: 20%; border: 0px;" allow="camera; microphone; fullscreen; display-capture; autoplay" src="https://meet.chagai.website/talknow#config.disableDeepLinking=true&interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true&config.startWithVideoMuted=true&interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%2C%22desktop%22%2C%22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D" ></iframe>
+      <span id="introText">
+        Hi, I'm Chagai <br>
+        ( just call me Joe if you like - it's my second name) <br><br>
+        Communication is very important to me! <br>
+         I have this page so it is easy and quick to contact me. <br>
+          I try to be available as much as possible,
+            wait a sec, and I'll join you <br>
 
-      <!-- <a title="it's actually Jitsi 😉" style="color:rgb(10, 107, 34)" href="http://meet.chagai.website/talkNow">Join a "Zoom" Session with me now</a> -->
+      </span>
       
-      <br>
-      <button style="cursor: pointer;" id="pingMe" title="Every time you click I get a new notification 😉" onclick="httpGet()">Click here to tell me</button>
-    </div>
-    <br><br>
-    <div align="center" > You can also contact me on: (press the app icon)</div>
-    <br>
+      <br><br>
 
+      <button id="iframeRefresher">Click here to hear me</button>
+      <br><br>
+
+      
+      <div id="iFrameDiv">
+       <iframe id="iFrameJitsi" style="height: 100px; width: 30%; border: 0px;" 
+          allow="camera; microphone; fullscreen; display-capture; autoplay" 
+              src="https://meet.jit.si/chagaitalkNow#config.disableDeepLinking=true
+                  &interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true
+                    &config.startWithVideoMuted=true
+                    &config.start  WithAudioMuted=true
+                    &config.disableInitialGUM=true
+                    &config.prejoinPageEnabled=false
+                    &config.enableClosePage=true
+                    &config.enableNoisyMicDetection=false
+                    
+                    &interfaceConfig.TOOLBAR_BUTTONS=
+                              %5B
+                                %22microphone%22
+                                %2C
+                                %22camera%22
+                                %2C
+                                %22desktop%22
+                                %2C
+          %22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D"
+                           ></iframe>
+       </div>
+<!-- 
+      <a title="it's actually Jitsi 😉" style="color:rgb(10, 107, 34)" 
+          href="http://meet.chagai.website/talkNow">Join a "Zoom" Session with me now</a>
+       -->
+
+      Every time you click the button below I get a new notification 🤠
+      <br>
+      <br>
+      <button id="niceButton" title="go wild 😎" onclick="httpGetPingMe()">Notify me </button>
+      <br>
+      Sometimes I might take a while, don't give up!  
+      <br>
+      <br>
+<!-- 
+      <button style="cursor: pointer;" id="niceButton" title="I need permissions for this, sorry..." onclick="iFrameReload()">Click to be able to talk to me</button>
+    
+     -->
+    </div>
+    <br>
+    <div style="padding-bottom: -200px;">
+       <img class="bigIcons"
+      src="Chagai Button Idea (7).png"
+      alt="WhatsApp" style="width:1900px;height:600px;border:0;
+    padding: 0px 4%;
+    word-wrap: normal;
+    display: inline-block;">
+    
+  </div>
 
 
 
 
     <a href="https://api.whatsapp.com/send?phone=41766524456"
       target="_blank" style="text-decoration: none;font-size:4px">
-      <img
+      <img class="bigIcons"
         src="WhatsApp.png"
         alt="WhatsApp" style="width:300px;height:300px;border:0;
       padding: 0px 2%;
@@ -421,22 +614,112 @@ window.addEventListener('DOMContentLoaded', function(e) {
       display: inline-block">
     </a> -->
 
+    <!-- Telegram_top.png -->
+
     <a href="https://telegram.me/chagai" target="_blank" style="text-decoration: none;font-size:10px">
 
-      <img
-        src="https://lh3.googleusercontent.com/5dv4wmUOgphsz7xqdCYp5LpU6E0zFgjnzhPjMn_g2YNx7OZq4Lt3EeLVn23wsELf7fxiKqMHazEdr4B1UgTr4yMYBwQOsuAtzkBAV7hpgnFDJRhYpulDSmxhFRIVfXIyI1yhaWF6Dz8=s225-no"
-        alt="Telegram" style="width:150px;height:150px;border:0;
+      <img class="bigIcons"
+        src="Telegram.png"
+        alt="Telegram" style="width:300px;height:300px;border:0;
       padding: 0px 10%;
       word-wrap: normal;
       display: inline-block">
     </a>
 
-    <a href="https://www.messenger.com/t/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
+    <a class="bigIcons" href="https://www.messenger.com/t/chagai95" target="_blank" style="text-decoration: none;font-size:10px">
 
-      <img
-        src="https://lh3.googleusercontent.com/a0auO466RvvtYkCr9qnMMaXeKKiC5U4qWqqcOJFBw-sitdhb70aRxE1pRhJxgPtpH7y8A2pg8NEK6GkqHbzjUJ3Ub8CYZny8NxyLe6Weyi6l4EkeLa95yxNuFRtSE7z3aawPXM062LA=s225-no"
-        alt="Messenger" style="width:75px;height:75px;border:0;">
+      <img class="bigIcons"
+        src="Messenger.png"
+        alt="Messenger"  style="width:300px;height:300px;border:0;
+        padding: 0px 2%;
+        word-wrap: normal;
+        display: inline-block">
     </a>
+
+
+
+    <br><br>
+
+
+    <span id="swissEmoji">🇨🇭</span>
+    
+    <a id="phoneNumber" title="Click to call me" href="tel:+41766524456" style="font-size: 100px;"> +41  &nbsp; 76  &nbsp; 652  &nbsp; 4456 </a>
+
+
+    <br><br>
+
+
+
+
+if you were wondering how to say my name - this is me my dad and mum saying it....
+
+<br><br>
+
+    <div id="playButtonDiv">
+      <button title="Click to hear my name" onclick="playButton()" id="playButton" class='button'></button>
+    </div><br>
+    <div id="playButtonDiv2">
+      <button title="Click to hear my name" onclick="playButton2()" id="playButton2" class='button'></button>
+    </div><br>
+    <div id="playButtonDiv3">
+      <button title="Click to hear my name" onclick="playButton3()" id="playButton3" class='button'></button>
+    </div>
+
+    <div>
+      <audio id="player" loop="loop">
+        <source src="https://chagai.website/chagaipronounce.mp3" type="audio/mpeg">
+
+      </audio>
+    </div>
+    <div>
+      <audio id="player2" loop="loop">
+        <source src="https://chagai.website/mum_saying_my_name.ogg" type="audio/mpeg">
+
+      </audio>
+    </div>
+    <div>
+      <audio id="player3" loop="loop">
+        <source src="https://chagai.website/dad_saying_my_name.ogg" type="audio/mpeg">
+
+      </audio>
+    </div>
+    
+    <br><br>
+
+    <a style="color: rgba(255, 153, 0, 0.87);" 
+      href="https://chagai-friedlander.webnode.com/about-me/"> More About Me which I don't really update...</a>
+
+    <br><br>
+
+    You can find my hobbies
+
+    <a style="color: rgba(0, 4, 255, 0.87);" 
+      href="https://tiny.cc/chagaihobbies"> here</a>
+
+    if you were wondering what I like to do
+
+    <br><br>
+
+    Which brings me to my todo list which you can find
+
+    <a style="color: rgba(0, 4, 255, 0.87);" 
+      href="https://chagai.website/p/todo"> here</a>
+
+    if you were wondering what's currently on my mind
+
+    <br><br>
+
+    You can find my exact location by following the instructions   
+
+    <a style="color: rgba(0, 4, 255, 0.87);" 
+      href="https://tinyurl.com/whereischagai"> here</a>
+
+
+    <br><br>
+    <br><br>
+    <br><br>
+
+
 
     <a href="https://www.instagram.com/chagai95/" target="_blank" style="text-decoration: none;font-size:10px">
       <img
@@ -450,22 +733,6 @@ window.addEventListener('DOMContentLoaded', function(e) {
         src="https://lh3.googleusercontent.com/qL2eTiIOVrzxI0heywcbSL8DIqEo4qXupDsBuPDocx8TMCwQH7cM4eDcjVDkZyk9J8dLls5tbHy4AD7lcZ28Tf2GcQbXx4HdvsvXNHDktHRFhLawctAZqwXWL8oxQ-lWRYKoxCPLdb0=s225-no"
         alt="Gmail" style="width:75px;height:75px;border:0;">
     </a>
-
-
-
-
-    <br><br>
-
-
-
-
-
-
-
-
-
-
-
 
 
     <a href="tel:+15152593078" style="text-decoration: none;font-size:10px">
@@ -518,7 +785,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
         alt="Stackoverflow" style="width:75px;height:75px;border:0;">
     </a>
 
-    <a href="https://www.couchsurfing.com/people/chagai" target="_blank" style="text-decoration: none;font-size:10px">
+    <a href="https://www.couchsurfing.com/people/chagaif" target="_blank" style="text-decoration: none;font-size:10px">
 
       <img
         src="https://lh3.googleusercontent.com/d1TYy0COTJ6DIM0ky7pH9oSEN9yb0rK3_VtwpmX4iRKH9LnG0kgf1otnGwNArqIpqic_ci8Jva6p1-730PF4uTknGXmigIK1OuJU5YjrPQQMqXTjkQ81vJ3VaGamUdJtIRmcgKdaaTw=w221-h228-no"
@@ -549,6 +816,14 @@ window.addEventListener('DOMContentLoaded', function(e) {
         alt="Spotify" style="width:75px;height:75px;border:0;">
     </a>
 
+    <a href="https://chagai.website/trustroots.html" target="_blank"
+      style="text-decoration: none;font-size:10px">
+
+      <img
+        src="https://www.trustroots.org/img/logo/color.png"
+        alt="Trustroots" style="width:75px;height:75px;border:0;">
+    </a>
+
 
 
 
@@ -569,15 +844,6 @@ window.addEventListener('DOMContentLoaded', function(e) {
       alt="DESCRIPTION_FOR_NO_INTERNET_GOES_HERE" style="width:75px;height:75px;border:0;">
     </a>
     -->
-
-
-
-
-    <br>
-    <br>
-
-
-    <a style="color: rgba(255, 153, 0, 0.87);" href="https://chagai-friedlander.webnode.com/about-me/"> About Me</a>
 
   </div>
 
