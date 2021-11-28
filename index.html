@@ -15,10 +15,19 @@
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <script src="jquery-3.5.1.min.js"></script>
 
+
+<script type="text/javascript">
+    if (screen.width <= 720) {
+        window.location = "mobile.html";
+    }
+</script>
+
 </head>
 
 
 <script>
+
+  
 
 /*  try catching the permission and showing an error - need to still prompt the permission request and only on success show the iframe
 
@@ -40,7 +49,7 @@ navigator.permissions.query({name: 'microphone'})
 
 
   try {
-    //httpGetPingMe()  comment this out to take a break from notifications  
+    httpGetPingMe()  comment this out to take a break from notifications  
 } catch (error) {
   console.error(error);
   // expected output: ReferenceError: nonExistentFunction is not defined
@@ -50,32 +59,6 @@ navigator.permissions.query({name: 'microphone'})
 
 // this is needed for some reason just to resize an iFrame all the rest is done in window.onload
 window.addEventListener('DOMContentLoaded', function(e) {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      $("#iFrameJitsi").on('load', function() {
-        document.getElementById('phoneNumber').style.fontSize ="40px";
-        $(this).height( "300px" );
-        $(this).width( "40%" );
-        document.getElementById('niceButton').style.fontSize ="30px";
-        document.getElementById('iframeRefresher').style.fontSize ="30px";
-        document.getElementById('introText').style.fontSize ="40px";
-        for (const item of document.getElementsByClassName('bigIcons')) { // You can use `let` instead of `const` if you like
-          item.style.width = "100px";
-          item.style.height = "100px";
-        }
-      });
-      $("#iFrameYoutube").on('load', function() {
-        document.getElementById('phoneNumber').style.fontSize ="40px";
-        $(this).height( "300px" );
-        $(this).width( "40%" );
-        document.getElementById('niceButton').style.fontSize ="30px";
-        document.getElementById('iframeRefresher').style.fontSize ="30px";
-        for (const item of document.getElementsByClassName('bigIcons')) { // You can use `let` instead of `const` if you like
-          item.style.width = "100px";
-          item.style.height = "100px";
-        }
-      });
-    } else {
-      document.getElementById('introText').style.fontSize ="60px";
       document.getElementById('phoneNumber').style.fontSize ="100px";
       $("#iFrameJitsi").on('load', function() {
         $(this).height( "800px" );
@@ -85,9 +68,8 @@ window.addEventListener('DOMContentLoaded', function(e) {
       var div = document.getElementById('swissEmoji');
       div.style.visibility = "hidden";
       div.style.display = "none";
-
-    }
 } );
+
 
 
   window.onload = function () {
@@ -100,19 +82,13 @@ window.addEventListener('DOMContentLoaded', function(e) {
       
     });
 
-    var background_img_string = "url(https://chagai.website/me-computer-size.png)"; 
-/*     
-    var leftDiv = document.getElementById('leftDiv');
-    var rightDiv = document.getElementById('rightDiv');
- */
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      //background_img_string = "url(me)"; // this causes the page to jump to the other picture so it's better to live with a worse picture than an annoying jump
-/*    
-      //This is just ugly 
-      leftDiv.style.display = "none";
-      rightDiv.style.display = "none";
- */
-    }
+    document.getElementById('hideYoutube').addEventListener('click', function() {
+      var element = document. getElementById("iFrameDivHideYoutube");
+      var parent = element.parentNode;
+      parent.removeChild(element);
+      this.parentNode.removeChild(this);
+    });
+
 
 
     $(function () {
@@ -183,15 +159,10 @@ window.addEventListener('DOMContentLoaded', function(e) {
     parent.removeChild(element);
     var ifrm = document.createElement("iframe");
         ifrm.setAttribute("src", "https://meet.chagai.website/talknow#config.disableDeepLinking=true&interfaceConfig.DISABLE_JOIN_LEAVE_NOTIFICATIONS=true&config.startWithVideoMuted=true&interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%2C%22desktop%22%2C%22fullscreen%22%2C%22hangup%22%2C%22profile%22%2C%22settings%22%2C%22tileview%22%2C%22videoquality%22%5D");
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-          ifrm.style.width = "200px";
-          ifrm.style.height = "30%";
-          ifrm.style.border = "0px";
-        } else {
+
           ifrm.style.width = "800px";
           ifrm.style.height = "20%";
           ifrm.style.border = "0px";
-        }
         parent.appendChild(ifrm);
         $("#iframe").on('load', function() {
           $(this).height( "800px" );
@@ -477,6 +448,18 @@ window.addEventListener('DOMContentLoaded', function(e) {
   cursor:pointer;
 }
 
+#hideYoutube {
+  background-color: #af4c4c; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 100px;
+  cursor:pointer;
+}
+
 </style>
 
 
@@ -513,23 +496,30 @@ window.addEventListener('DOMContentLoaded', function(e) {
     <div id="topDiv">
       <br><br>
 
-      <iframe id="iFrameYoutube" width="3877" 
-                height="1548"
-                   src="https://www.youtube.com/embed/ds7JjPf6-xk?autoplay=1&rel=0" 
-                        title="YouTube video player" 
-                            frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen></iframe>
+      <div id="iFrameDivHideYoutube">
 
+        <iframe id="iFrameYoutube" width="3877" 
+                  height="1548"
+                    src="https://www.youtube.com/embed/ds7JjPf6-xk?autoplay=1&rel=0" 
+                          title="YouTube video player" 
+                              frameborder="0" 
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                      allowfullscreen></iframe>
+      </div>
+      <br>
+      <button id="hideYoutube">I finished watching the video</button>
       <br><br>
 
-      <span id="introText">
+      <span id="introText" style="font-size: 150px;">
         Hi, I'm Chagai <br>
-        ( just call me Joe if you like - it's my second name) <br><br>
+      </span>
+        <p style="font-size: 75px;">( just call me Joe if you like - it's my second name) <br><br></p>
+      <span id="introText">
+
         Communication is very important to me! <br>
          I have this page so it is easy and quick to contact me. <br>
           I try to be available as much as possible,
-            wait a sec, and I'll join you <br>
+            maybe I'm already here 😉 <br>
 
       </span>
       
@@ -571,6 +561,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
       <br>
       <br>
       <button id="niceButton" title="go wild 😎" onclick="httpGetPingMe()">Notify me </button>
+      <br>
       <br>
       Sometimes I might take a while, don't give up!  
       <br>
@@ -651,7 +642,7 @@ window.addEventListener('DOMContentLoaded', function(e) {
 
 
 
-if you were wondering how to say my name - this is me my dad and mum saying it....
+If you were wondering how to say my name - this is me, my dad and mum saying it....
 
 <br><br>
 
@@ -694,7 +685,7 @@ if you were wondering how to say my name - this is me my dad and mum saying it..
     You can find my hobbies
 
     <a style="color: rgba(0, 4, 255, 0.87);" 
-      href="https://tiny.cc/chagaihobbies"> here</a>
+      href="https://chagai.website/p/hobbies"> here</a>
 
     if you were wondering what I like to do
 
